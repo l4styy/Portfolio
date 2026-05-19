@@ -1,0 +1,116 @@
+HTML:
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mateus Rios | Portfólio</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet">
+</head>
+<body>
+  <section class="terminal" id="terminal">
+    <div class="terminal-text" id="terminal-text">
+      <!-- Linhas digitadas vão aparecer aqui -->
+    </div>
+  </section>
+
+  <section class="projects" id="projects">
+    <h2>Meus Projetos</h2>
+    <!-- Cards virão depois -->
+  </section>
+
+  <section class="contact">
+    <h2>Contato</h2>
+    <p>📱 WhatsApp | 📸 Instagram | 📧 E-mail</p>
+  </section>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
+
+CSS:
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      
+      html {
+        scroll-behavior: smooth;
+      }
+      
+      body {
+        background-color: #0d0d0d;
+        color: #00ff88;
+        font-family: 'Fira Code', monospace;
+      }
+      
+      .terminal {
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 40px;
+        text-align: left;
+      }
+      
+      .terminal-text {
+        font-size: 1.2rem;
+        line-height: 1.8rem;
+        white-space: pre-wrap;
+        max-width: 700px;
+      }
+      
+      .projects, .contact {
+        padding: 60px 20px;
+        text-align: center;
+        background-color: #1a1a1a;
+        color: white;
+      }
+
+
+JS:
+
+
+const lines = [
+    "> Iniciando sistema...",
+    "> Bem-vindo",
+    "> Me chamo Mateus Rios",
+    "> Apresentando sistema de projetos..."
+  ];
+  
+  const terminal = document.getElementById("terminal-text");
+  
+  let currentLine = 0;
+  
+  function typeLine(text, callback) {
+    let i = 0;
+    const interval = setInterval(() => {
+      terminal.innerHTML += text.charAt(i);
+      i++;
+      if (i >= text.length) {
+        clearInterval(interval);
+        terminal.innerHTML += "\n";
+        setTimeout(callback, 500); // delay entre linhas
+      }
+    }, 50); // velocidade de digitação
+  }
+  
+  function startTyping() {
+    if (currentLine < lines.length) {
+      typeLine(lines[currentLine], () => {
+        currentLine++;
+        startTyping();
+      });
+    } else {
+      setTimeout(() => {
+        document.getElementById("projects").scrollIntoView({ behavior: "smooth" });
+      }, 1000);
+    }
+  }
+  
+  window.addEventListener("DOMContentLoaded", startTyping);
+  
